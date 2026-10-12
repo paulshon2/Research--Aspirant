@@ -107,13 +107,18 @@ def main():
     unicodes = sorted(ord(c) for c in chars)
     print(f"글자 {len(unicodes)}종")
 
+    # CSS/HTML/JS 에서 실제로 참조하는 글꼴 가족만 남긴다
+    used_fonts = [(f, files) for f, files in FONTS if f'"{f}"' in css + html + js]
+    print("사용 글꼴:", ", ".join(f for f, _ in used_fonts))
+    if (ASSETS / "fonts").exists():
+        shutil.rmtree(ASSETS / "fonts")
     (ASSETS / "fonts").mkdir(parents=True, exist_ok=True)
     (ASSETS / "css").mkdir(parents=True, exist_ok=True)
     (ASSETS / "js").mkdir(parents=True, exist_ok=True)
 
     face_css = ["/* 자동 생성 — tools/build.py */"]
     total = 0
-    for family, files in FONTS:
+    for family, files in used_fonts:
         for fname, weight in files:
             src = find_font(fname)
             font = TTFont(str(src), lazy=True)
@@ -168,8 +173,11 @@ def main():
     lic.mkdir(exist_ok=True)
     for f in (ICON_DIR / "attribution").glob("*.txt"):
         shutil.copy2(f, lic / f.name)
-    for f in FONT_DIR.rglob("OFL-*.txt"):
-        shutil.copy2(f, lic / f.name)
+    for old in lic.glob("OFL-*.txt"):
+        old.unlink()
+    if any(f.startswith("RA Noto") for f, _ in used_fonts):
+        for f in FONT_DIR.rglob("OFL-*.txt"):
+            shutil.copy2(f, lic / f.name)
     print("완료")
 
 

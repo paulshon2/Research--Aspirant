@@ -13,9 +13,6 @@
 @font-face{font-family:"RA GothicEco";src:url("../fonts/ra-gothiceco-400.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
 @font-face{font-family:"RA GothicEco";src:url("../fonts/ra-gothiceco-700.woff2") format("woff2");font-weight:700;font-style:normal;font-display:swap}
 @font-face{font-family:"RA GothicEco";src:url("../fonts/ra-gothiceco-800.woff2") format("woff2");font-weight:800;font-style:normal;font-display:swap}
-@font-face{font-family:"RA MyeongjoEco";src:url("../fonts/ra-myeongjoeco-400.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
-@font-face{font-family:"RA MyeongjoEco";src:url("../fonts/ra-myeongjoeco-700.woff2") format("woff2");font-weight:700;font-style:normal;font-display:swap}
-@font-face{font-family:"RA MyeongjoEco";src:url("../fonts/ra-myeongjoeco-800.woff2") format("woff2");font-weight:800;font-style:normal;font-display:swap}
 @font-face{font-family:"RA Square";src:url("../fonts/ra-square-300.woff2") format("woff2");font-weight:300;font-style:normal;font-display:swap}
 @font-face{font-family:"RA Square";src:url("../fonts/ra-square-400.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
 @font-face{font-family:"RA Square";src:url("../fonts/ra-square-700.woff2") format("woff2");font-weight:700;font-style:normal;font-display:swap}
@@ -30,15 +27,7 @@
 @font-face{font-family:"RA Human";src:url("../fonts/ra-human-700.woff2") format("woff2");font-weight:700;font-style:normal;font-display:swap}
 @font-face{font-family:"RA Human";src:url("../fonts/ra-human-800.woff2") format("woff2");font-weight:800;font-style:normal;font-display:swap}
 @font-face{font-family:"RA Human";src:url("../fonts/ra-human-900.woff2") format("woff2");font-weight:900;font-style:normal;font-display:swap}
-@font-face{font-family:"RA Barunpen";src:url("../fonts/ra-barunpen-400.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
-@font-face{font-family:"RA Barunpen";src:url("../fonts/ra-barunpen-700.woff2") format("woff2");font-weight:700;font-style:normal;font-display:swap}
 @font-face{font-family:"RA Pen";src:url("../fonts/ra-pen-400.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
 @font-face{font-family:"RA Brush";src:url("../fonts/ra-brush-400.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
 @font-face{font-family:"RA Code";src:url("../fonts/ra-code-400.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
 @font-face{font-family:"RA Code";src:url("../fonts/ra-code-700.woff2") format("woff2");font-weight:700;font-style:normal;font-display:swap}
-@font-face{font-family:"RA YetSerif";src:url("../fonts/ra-yetserif-400.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
-@font-face{font-family:"RA YetSans";src:url("../fonts/ra-yetsans-400.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
-@font-face{font-family:"RA NotoSC";src:url("../fonts/ra-notosc-100-900.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
-@font-face{font-family:"RA NotoTC";src:url("../fonts/ra-nototc-100-900.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
-@font-face{font-family:"RA NotoSerifSC";src:url("../fonts/ra-notoserifsc-200-900.woff2") format("woff2");font-weight:200 900;font-style:normal;font-display:swap}
-@font-face{font-family:"RA NotoSerifTC";src:url("../fonts/ra-notoseriftc-200-900.woff2") format("woff2");font-weight:200 900;font-style:normal;font-display:swap}

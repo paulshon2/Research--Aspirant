@@ -8,7 +8,7 @@
 index.html            완성된 페이지
 config.js             Supabase URL / anon key 입력 (공개용 키만)
 vercel.json           Vercel 캐시·보안 헤더
-assets/               css · js · fonts(woff2 41개) · icons(사용한 SVG 36개) · logo/favicon
+assets/               css · js · fonts(woff2 32개) · icons(사용한 SVG 36개) · logo/favicon
 supabase/waitlist.sql 대기 등록 테이블 + RLS
 licenses/             아이콘·글꼴 라이선스 고지
 tools/                원본(src)과 빌드 스크립트
