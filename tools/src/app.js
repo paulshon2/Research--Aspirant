@@ -112,9 +112,12 @@
       var cfg = window.RA_CONFIG || {};
       if (!cfg.SUPABASE_URL || !cfg.SUPABASE_ANON_KEY) { say("대기 등록 서버가 아직 연결되지 않았습니다. 연결 후 다시 시도해 주세요.", "is-err"); return; }
       say("등록 중…");
+      var headers = { "Content-Type": "application/json", apikey: cfg.SUPABASE_ANON_KEY, Prefer: "return=minimal" };
+      /* 구형 anon(JWT) 키는 Bearer 로도 보내고, 새 sb_publishable_ 키는 apikey 헤더만 사용 */
+      if (/^eyJ/.test(cfg.SUPABASE_ANON_KEY)) headers.Authorization = "Bearer " + cfg.SUPABASE_ANON_KEY;
       fetch(cfg.SUPABASE_URL.replace(/\/$/, "") + "/rest/v1/waitlist", {
         method: "POST",
-        headers: { "Content-Type": "application/json", apikey: cfg.SUPABASE_ANON_KEY, Authorization: "Bearer " + cfg.SUPABASE_ANON_KEY, Prefer: "return=minimal" },
+        headers: headers,
         body: JSON.stringify({ name: name, email: email.toLowerCase(), stage: stage })
       }).then(function (r) {
         if (r.ok) { form.reset(); say("등록되었습니다. 오픈 소식을 가장 먼저 보내드릴게요.", "is-ok"); }
