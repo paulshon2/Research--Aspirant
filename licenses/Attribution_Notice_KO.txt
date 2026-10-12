@@ -1,0 +1,66 @@
+========================================
+무료 아이콘 명시 문구 (Attribution Notice)
+========================================
+저장 위치: C:\Users\saran\OneDrive\Desktop\free icon
+다운로드일: 2026-09-15
+
+이 폴더의 아이콘은 상업적 사용이 가능한 오픈소스/자유 라이선스입니다.
+프로젝트·제품·웹사이트에 사용할 때 아래 명시 문구를 참고하세요.
+
+
+----------------------------------------
+1) Lucide Icons
+----------------------------------------
+폴더: lucide\  (아이콘 2102개, SVG)
+패키지: lucide-static v1.46.0
+공식 사이트: https://lucide.dev
+라이선스: ISC License (MIT와 유사한 허용적 라이선스)
+상업적 사용: 가능
+수정·재배포: 가능
+
+[권장 명시 문구 / Attribution]
+Icons by Lucide (https://lucide.dev) — ISC License
+
+[영문 NOTICE]
+This product includes icons from Lucide Icons
+(https://lucide.dev), licensed under the ISC License.
+See Lucide_LICENSE.txt for the full license text.
+
+
+----------------------------------------
+2) Google Material Icons (Material Design Icons)
+----------------------------------------
+폴더: material-icons\
+  - filled\    (2,122개)
+  - outlined\  (2,122개)
+  - round\     (2,122개)
+  - sharp\     (2,122개)
+  - two-tone\  (2,122개)
+합계: 10,610개 SVG
+패키지: @material-design-icons/svg v0.14.15
+공식 사이트: https://fonts.google.com/icons
+라이선스: Apache License 2.0
+상업적 사용: 가능
+수정·재배포: 가능 (라이선스 조건 준수)
+
+[권장 명시 문구 / Attribution]
+Material Design Icons by Google — Apache License 2.0
+https://fonts.google.com/icons
+
+[영문 NOTICE]
+This product includes Material Design icons by Google
+(https://fonts.google.com/icons), licensed under the Apache License, Version 2.0.
+You may obtain a copy of the License at:
+http://www.apache.org/licenses/LICENSE-2.0
+See MaterialIcons_Apache-2.0_LICENSE.txt for the full license text.
+
+
+----------------------------------------
+사용 시 안내
+----------------------------------------
+1. Lucide(ISC): 저작권 고지와 허가 고지를 모든 복사본에 포함해야 합니다.
+2. Material Icons(Apache-2.0): NOTICE 파일 및 저작권 고지가 있으면 유지해야 합니다.
+3. "Google" 또는 "Material" 상표를 제품명처럼 오해되게 사용하지 마세요.
+4. 전체 라이선스 원문은 같은 폴더의 LICENSE 파일을 확인하세요.
+
+합계 아이콘 수: Lucide 2,102 + Material 10,610 = 12,712개

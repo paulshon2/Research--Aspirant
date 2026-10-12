@@ -1,0 +1,18 @@
+NOTICE — Free Icons Attribution
+===============================
+
+Lucide Icons
+------------
+Copyright (c) Lucide Icons and Contributors
+License: ISC
+Website: https://lucide.dev
+Full license: Lucide_LICENSE.txt
+
+Google Material Design Icons
+----------------------------
+Copyright Google LLC
+License: Apache License 2.0
+Website: https://fonts.google.com/icons
+Full license: MaterialIcons_Apache-2.0_LICENSE.txt
+
+Downloaded: 2026-09-15
