@@ -28,6 +28,48 @@ const phoneDigits = (s: string) => s.replace(/\D/g, "");
 const isPhone = (s: string) => /^[+\d][\d\s-]*$/.test(s.trim()) && phoneDigits(s).length >= 9 && phoneDigits(s).length <= 15;
 const isEmail = (s: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s.trim());
 
+/** 비밀번호 규칙 — 8자 이상, 대문자·소문자·숫자·특수문자 각 1개 이상, 공백 없음.
+    Clerk 대시보드의 Password 설정도 같은 값으로 맞춰야 서버에서 거절되지 않는다. */
+const PASSWORD_RULES: { key: string; label: string; test: (s: string) => boolean }[] = [
+  { key: "len", label: "8자 이상", test: (s) => s.length >= 8 },
+  { key: "upper", label: "영문 대문자 1개 이상 (A-Z)", test: (s) => /[A-Z]/.test(s) },
+  { key: "lower", label: "영문 소문자 1개 이상 (a-z)", test: (s) => /[a-z]/.test(s) },
+  { key: "digit", label: "숫자 1개 이상 (0-9)", test: (s) => /\d/.test(s) },
+  { key: "special", label: "특수문자 1개 이상 (!@#$% 등)", test: (s) => /[!-/:-@[-`{-~]/.test(s) },
+  { key: "space", label: "공백 없음", test: (s) => s.length > 0 && !/\s/.test(s) },
+];
+const missingPasswordRules = (s: string) => PASSWORD_RULES.filter((r) => !r.test(s)).map((r) => r.label);
+
+/** Clerk 오류를 사용자가 고칠 수 있는 한국어 안내로 바꾼다 */
+function clerkErrorKo(err: unknown, fallback: string): string {
+  const e = (err as { errors?: { code?: string; message?: string; longMessage?: string }[] })?.errors?.[0];
+  if (!e) return fallback;
+  const n = (e.longMessage || e.message || "").match(/(\d+)/)?.[1];
+  switch (e.code) {
+    case "form_password_length_too_short":
+      return `비밀번호가 너무 짧습니다${n ? ` (현재 인증 서버 설정: ${n}자 이상)` : ""}. 더 길게 입력하세요.`;
+    case "form_password_length_too_long":
+      return "비밀번호가 너무 깁니다. 더 짧게 입력하세요.";
+    case "form_password_pwned":
+      return "이 비밀번호는 다른 사이트에서 유출된 적이 있어 사용할 수 없습니다. 다른 비밀번호를 입력하세요.";
+    case "form_password_not_strong_enough":
+    case "form_password_validation_failed":
+      return "비밀번호가 보안 기준을 충족하지 않습니다. 아래 체크리스트를 모두 채워 주세요.";
+    case "form_identifier_exists":
+      return "이미 가입된 이메일입니다. 로그인하거나 다른 이메일을 사용하세요.";
+    case "form_param_format_invalid":
+      return "입력 형식이 올바르지 않습니다. 이메일 주소를 확인하세요.";
+    case "form_code_incorrect":
+      return "인증 코드가 올바르지 않습니다. 메일의 6자리 코드를 다시 확인하세요.";
+    case "verification_expired":
+      return "인증 코드가 만료되었습니다. '코드 다시 받기'를 누르세요.";
+    case "too_many_requests":
+      return "요청이 너무 많습니다. 잠시 후 다시 시도하세요.";
+    default:
+      return e.longMessage || e.message || fallback;
+  }
+}
+
 export default function RaSignupPage() {
   const [phase, setPhase] = useState<Phase>("form");
   const [form, setForm] = useState<Form>({ name: "", email: "", password: "", university: "", department: "", phone: "" });
@@ -42,16 +84,15 @@ export default function RaSignupPage() {
   const clerk = hasClerk ? useSignUp() : null;
 
   const set = (k: keyof Form, v: string) => setForm((f) => ({ ...f, [k]: v }));
-  const clerkMsg = (err: unknown, fallback: string) => {
-    const m = (err as { errors?: { longMessage?: string; message?: string }[] })?.errors?.[0];
-    return m?.longMessage || m?.message || fallback;
-  };
+  const clerkMsg = clerkErrorKo;
+  const [showPw, setShowPw] = useState(false);
+  const pwMissing = missingPasswordRules(form.password);
 
   function validate(): boolean {
     const e: string[] = [];
     if (!form.name.trim()) e.push("이름을 입력하세요");
     if (!isEmail(form.email)) e.push("올바른 이메일을 입력하세요");
-    if (form.password.length < 8) e.push("비밀번호는 8자 이상이어야 합니다");
+    if (pwMissing.length) e.push(`비밀번호에 빠진 조건: ${pwMissing.join(", ")}`);
     if (!form.university.trim()) e.push("소속 대학을 입력하세요");
     if (!form.department.trim()) e.push("학과를 입력하세요");
     if (!isPhone(form.phone)) e.push("핸드폰번호를 확인하세요 (예: 010-1234-5678)");
@@ -167,7 +208,30 @@ export default function RaSignupPage() {
           <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); void startSignup(); }} noValidate>
             <Field label="이름" autoComplete="name" value={form.name} onChange={(v) => set("name", v)} />
             <Field label="이메일" type="email" autoComplete="email" value={form.email} onChange={(v) => set("email", v)} />
-            <Field label="비밀번호 (8자 이상)" type="password" autoComplete="new-password" value={form.password} onChange={(v) => set("password", v)} />
+            <div>
+              <label className="block">
+                <span className="block text-[13px] text-white/60 mb-1.5">비밀번호 <span className="text-[#3ecfb2]">*</span></span>
+                <div className="relative">
+                  <input type={showPw ? "text" : "password"} autoComplete="new-password" value={form.password}
+                    onChange={(e) => set("password", e.target.value)} aria-describedby="pw-rules"
+                    className="w-full px-4 py-2.5 pr-16 rounded-[10px] bg-[#0c0c0e] border border-white/[0.1] text-[14px] text-white focus:border-[#3ecfb2] focus:outline-none transition-colors" />
+                  <button type="button" onClick={() => setShowPw((v) => !v)}
+                    className="absolute right-2 top-1/2 -translate-y-1/2 px-2 py-1 text-[12px] text-white/50 hover:text-white/85">
+                    {showPw ? "숨기기" : "보기"}
+                  </button>
+                </div>
+              </label>
+              <ul id="pw-rules" className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1 text-[12.5px]" aria-live="polite">
+                {PASSWORD_RULES.map((r) => {
+                  const ok = r.test(form.password);
+                  return (
+                    <li key={r.key} className={ok ? "text-[#3ecfb2]" : form.password ? "text-[#ff9a92]" : "text-white/40"}>
+                      {ok ? "✓" : "○"} {r.label}
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
             <Field label="소속 대학" autoComplete="organization" value={form.university} onChange={(v) => set("university", v)} />
             <Field label="학과" value={form.department} onChange={(v) => set("department", v)} />
             <Field label="핸드폰번호" type="tel" autoComplete="tel" inputMode="tel" placeholder="010-1234-5678" value={form.phone} onChange={(v) => set("phone", v)} />
