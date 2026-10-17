@@ -13,9 +13,10 @@
     "skipLibCheck": true,
     "isolatedModules": true,
     "incremental": true,
-    "declaration": true,
-    "declarationMap": true,
-    "composite": false
+    "jsx": "preserve",
+    "plugins": [{ "name": "next" }],
+    "paths": { "@/*": ["./*"] }
   },
-  "exclude": ["node_modules", "dist", ".next", "out"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
 }

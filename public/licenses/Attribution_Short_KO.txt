@@ -1,0 +1,3 @@
+[아이콘 출처 명시]
+· Lucide Icons (https://lucide.dev) — ISC License
+· Material Design Icons by Google (https://fonts.google.com/icons) — Apache License 2.0

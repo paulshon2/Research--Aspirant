@@ -1,21 +1,33 @@
 {
-  "name": "research-aspirant-saas",
-  "version": "1.0.0",
+  "name": "research-aspirant",
+  "version": "2.0.0",
   "private": true,
-  "packageManager": "npm@10.9.2",
-  "workspaces": [
-    "apps/web",
-    "packages/*"
-  ],
-  "description": "Research Aspirant — 연구준비자 플랜(관리자·본페이지·가입) SaaS",
+  "description": "Research Aspirant — 연구준비자를 위한 단계형 연구 역량 개발 플랫폼 (독립 SaaS)",
   "scripts": {
-    "dev": "npm run dev -w @ai-research-os/web",
-    "build": "npm run build -w @ai-research-os/web",
-    "typecheck": "npm run typecheck -w @ai-research-os/web",
-    "supabase:push": "supabase db push"
+    "dev": "next dev --port 3010",
+    "build": "next build",
+    "start": "next start --port 3010",
+    "typecheck": "tsc --noEmit",
+    "check:schema": "node scripts/check-schema.mjs"
+  },
+  "dependencies": {
+    "@clerk/nextjs": "^6.9.0",
+    "@supabase/supabase-js": "^2.46.0",
+    "lucide-react": "^0.460.0",
+    "next": "^15.1.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "server-only": "^0.0.1",
+    "svix": "^1.94.0"
   },
   "devDependencies": {
-    "prettier": "^3.4.0"
+    "@types/node": "^22.10.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "autoprefixer": "^10.4.0",
+    "postcss": "^8.4.0",
+    "tailwindcss": "^3.4.0",
+    "typescript": "^5.7.0"
   },
   "engines": {
     "node": ">=20.0.0"
