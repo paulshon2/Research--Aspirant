@@ -4,6 +4,7 @@ import { headers } from "next/headers";
 import { clerkClient } from "@clerk/nextjs/server";
 import { getServiceSupabase } from "@/lib/supabase";
 import { isSpecialMemberName } from "@/lib/membership";
+import { isSuperAdminEmail } from "@/lib/admin-config";
 
 /**
  * Clerk Webhook — 회원가입 시 Supabase profiles 등록 + 운영자 승인 대기
@@ -103,7 +104,9 @@ export async function POST(req: Request) {
         gemini_model: "gemini-2.5-flash",
         language: "ko",
         theme: "dark",
-        approval_status: "pending",
+        // 슈퍼관리자는 승인 대기 없이 바로 승인 (관리자가 없으면 아무도 승인할 수 없다)
+        approval_status: isSuperAdminEmail(email) ? "approved" : "pending",
+        ...(isSuperAdminEmail(email) ? { role: "admin" } : {}),
       });
     } else if (existing && !existing.approval_status) {
       profileData.approval_status = "pending";

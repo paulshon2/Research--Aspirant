@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { currentUser } from "@clerk/nextjs/server";
 import { isSuperAdminEmail } from "@/lib/admin-config";
 import ControlHub from "@/components/admin/control-hub";
+import { ensureSuperAdminApproved } from "@/lib/admin-approval";
 
 export const dynamic = "force-dynamic";
 
@@ -12,6 +13,8 @@ export default async function ControlPage() {
   const user = await currentUser().catch(() => null);
   const email = user?.emailAddresses?.[0]?.emailAddress ?? null;
   if (!isSuperAdminEmail(email)) redirect("/rdos");
+  // 관리자 자신이 승인 대기에 갇히지 않도록 (첫 로그인 시 자동 승인)
+  if (user) await ensureSuperAdminApproved(user.id, email);
   const name = user?.firstName || (email ? email.split("@")[0] : null);
   return <ControlHub adminName={name} />;
 }
