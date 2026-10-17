@@ -16,7 +16,7 @@ interface Enrollment {
   user_id: string;
   email: string | null;
   status: "pending" | "approved" | "active" | "rejected";
-  profile: { name?: string; university?: string; department?: string; interest?: string } | null;
+  profile: { name?: string; university?: string; department?: string; interest?: string; phone?: string } | null;
   created_at: string;
 }
 interface Member { user_id: string; email: string | null; name: string | null; rdosStatus: string; }
@@ -147,7 +147,7 @@ export default function RdosAdminView() {
           <div className="space-y-3">
             {pending.map((e) => (
               <RowBox key={e.user_id} title={e.profile?.name || e.email || e.user_id} sub={e.email}
-                meta={e.profile && [e.profile.university, e.profile.department, e.profile.interest].filter(Boolean).join(" · ")}
+                meta={e.profile && [e.profile.university, e.profile.department, e.profile.phone, e.profile.interest].filter(Boolean).join(" · ")}
                 status="pending">
                 <button disabled={busy === e.user_id} onClick={() => act(e.user_id, e.email, { approve: true }, t("rdos.admin.approve"))}
                   className="px-3.5 py-1.5 rounded-[8px] text-[13px] font-semibold bg-[#065f46] text-[#6ee7b7] disabled:opacity-50">{t("rdos.admin.approve")}</button>
