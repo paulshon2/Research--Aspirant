@@ -277,7 +277,7 @@ svg.ic--l{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stro
   .nav__links.open{display:flex}
   .nav__links a{padding:13px 8px;font-size:16px}
   .nav__burger{display:block}
-  .nav__cta{display:none}
+  .nav__cta,.nav__login{display:none}
   .sec{padding:76px 0}
   .stats{grid-template-columns:repeat(2,auto)}
   .les{grid-template-columns:1fr}
@@ -288,3 +288,5 @@ svg.ic--l{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stro
   .certs{grid-template-columns:1fr}
   .hl{white-space:normal}
 }
+.nav__login{margin-left:4px}
+.flow__cta{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:28px}

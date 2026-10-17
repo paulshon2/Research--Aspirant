@@ -99,6 +99,14 @@
     });
   }
 
+  /* ───── 연구준비자 플랜(앱) 연동: data-app 링크를 RA_CONFIG.APP_URL 기준으로 치환 ───── */
+  (function () {
+    var base = String((window.RA_CONFIG || {}).APP_URL || "").replace(/\/$/, "");
+    document.querySelectorAll("a[data-app]").forEach(function (a) {
+      a.setAttribute("href", base ? base + a.getAttribute("data-app") : "#join"); /* 앱 주소 미설정 시 대기 등록으로 */
+    });
+  })();
+
   /* ───── 대기 등록 폼 (Supabase REST, config.js 에 키가 있을 때만 전송) ───── */
   var form = document.getElementById("joinForm"), msg = document.getElementById("formMsg");
   function say(t, cls) { msg.textContent = t; msg.className = "form__msg " + (cls || ""); }
