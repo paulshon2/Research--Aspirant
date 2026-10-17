@@ -1,0 +1,23 @@
+{
+  "name": "research-aspirant-saas",
+  "version": "1.0.0",
+  "private": true,
+  "packageManager": "npm@10.9.2",
+  "workspaces": [
+    "apps/web",
+    "packages/*"
+  ],
+  "description": "Research Aspirant — 연구준비자 플랜(관리자·본페이지·가입) SaaS",
+  "scripts": {
+    "dev": "npm run dev -w @ai-research-os/web",
+    "build": "npm run build -w @ai-research-os/web",
+    "typecheck": "npm run typecheck -w @ai-research-os/web",
+    "supabase:push": "supabase db push"
+  },
+  "devDependencies": {
+    "prettier": "^3.4.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
